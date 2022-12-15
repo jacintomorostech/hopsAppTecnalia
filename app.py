@@ -8,40 +8,56 @@ app = Flask(__name__)
 hops: hs.HopsFlask = hs.Hops(app)
 
 @hops.component(
-    "/mergesort",
-    name="Merge Sort",
-    nickname="MergeSort",
-    description="Merge sort algorithm",
+    "/whisper",
+    name="Whisper",
+    nickname="Whi",
+    description="Get prompt from recording",
+    icon="pointat.png",
     inputs=[
-        hs.HopsNumber("List", "L", "List of numbers to sort", access = hs.HopsParamAccess.LIST)
+        hs.HopsString("size", "size", "size"),
+        hs.HopsString("audioPath", "audioPath", "audioPath"),
     ],
-    outputs=[hs.HopsNumber("List", "L", "Sorted list of numbers")]
+    outputs=[
+        hs.HopsString("prompt","prompt","prompt"),
+    ]
 )
-def merge_sort(list: list):
-    if len(list) > 1:
-        mid = len(list) // 2
-        left = list[:mid]
-        right = list[mid:]
-        merge_sort(left)
-        merge_sort(right)
-        i = j = k = 0
-        while i < len(left) and j < len(right):
-            if left[i] < right[j]:
-                list[k] = left[i]
-                i += 1
-            else:
-                list[k] = right[j]
-                j += 1
-            k += 1
-        while i < len(left):
-            list[k] = left[i]
-            i += 1
-            k += 1
-        while j < len(right):
-            list[k] = right[j]
-            j += 1
-            k += 1
-    return list
+def audio_to_txt(size, audioPath):
+
+    import whisper
+    model = whisper.load_model(size)
+    result = model.transcribe(audioPath, fp16=False, language='English')
+    return result["text"]
+
+@hops.component(
+    "/stable-diffusion",
+    name="Stable Diffusion",
+    nickname="SD",
+    # description="image",
+    # icon="pointat.png",
+    inputs=[
+        hs.HopsString("prompt", "prompt", "prompt"),
+    ],
+    outputs=[
+        hs.HopsString("prompt","prompt","prompt"),
+    ]
+)
+def prompt_to_image(prompt):
+
+    # make sure you're logged in with `huggingface-cli login`
+    from torch import autocast
+    from diffusers import StableDiffusionPipeline
+
+    pipe = StableDiffusionPipeline.from_pretrained(
+        "CompVis/stable-diffusion-v1-4", 
+        use_auth_token=True
+    ).to("cuda")
+
+    with autocast("cuda"):
+        image = pipe(prompt)["sample"][0]  
+        
+    image.save("astronaut_rides_horse.png")
+
+    return image
 
 if __name__ == "__main__":
     app.run(debug=True)
