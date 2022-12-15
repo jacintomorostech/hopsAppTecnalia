@@ -7,20 +7,41 @@ import rhino3dm
 app = Flask(__name__)
 hops: hs.HopsFlask = hs.Hops(app)
 
-
-# flask app can be used for other stuff drectly
-@app.route("/help")
-def help():
-    return "Welcome to Grashopper Hops for CPython!"
-
-
 @hops.component(
-    "/binmult",
-    inputs=[hs.HopsNumber("A"), hs.HopsNumber("B")],
-    outputs=[hs.HopsNumber("Multiply")],
+    "/mergesort",
+    name="Merge Sort",
+    nickname="MergeSort",
+    description="Merge sort algorithm",
+    inputs=[
+        hs.HopsNumber("List", "L", "List of numbers to sort", access = hs.HopsParamAccess.LIST)
+    ],
+    outputs=[hs.HopsNumber("List", "L", "Sorted list of numbers")]
 )
-def BinaryMultiply(a: float, b: float):
-    return a * b
+def merge_sort(list: list):
+    if len(list) > 1:
+        mid = len(list) // 2
+        left = list[:mid]
+        right = list[mid:]
+        merge_sort(left)
+        merge_sort(right)
+        i = j = k = 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                list[k] = left[i]
+                i += 1
+            else:
+                list[k] = right[j]
+                j += 1
+            k += 1
+        while i < len(left):
+            list[k] = left[i]
+            i += 1
+            k += 1
+        while j < len(right):
+            list[k] = right[j]
+            j += 1
+            k += 1
+    return list
 
 if __name__ == "__main__":
     app.run(debug=True)
