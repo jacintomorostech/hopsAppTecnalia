@@ -14,10 +14,10 @@ hops: hs.HopsFlask = hs.Hops(app)
     # description="image",
     # icon="pointat.png",
     inputs=[
-        hs.HopsString("image", "image", "image"),
+        hs.HopsString("imagePath", "imagePath", "imagePath"),
     ],
     outputs=[
-        hs.HopsString("prompt", "prompt", "prompt"),
+        hs.HopsString("numberEdges", "numberEdges", "numberEdges"),
     ]
 )
 def edge_detection(path):
@@ -41,6 +41,8 @@ def edge_detection(path):
     print('Number of edges' + '=' + str(len(final)))  # printing Number of edges
     numberEdges = str(len(final))
     return numberEdges
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
