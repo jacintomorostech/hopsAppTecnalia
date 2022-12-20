@@ -11,8 +11,8 @@ hops: hs.HopsFlask = hs.Hops(app)
     "/edge_detection",
     name="Edge Detection",
     nickname="EdegeD",
-    # description="image",
-    # icon="pointat.png",
+    description="image",
+    icon="3732425-200.png",
     inputs=[
         hs.HopsString("imagePath", "imagePath", "imagePath"),
     ],

@@ -2,3 +2,4 @@ rhino3dm==7.15.0
 Flask==2.2.2
 ghhops_server==1.5.3
 opencv-python==4.6.0.66
+selenium==4.5.0
