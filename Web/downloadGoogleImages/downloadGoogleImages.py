@@ -24,7 +24,7 @@ hops: hs.HopsFlask = hs.Hops(app)
         hs.HopsNumber("numberImages", "numberImages", "numberImages"),
     ],
     outputs=[
-        hs.HopsString("imageFilePaths", "imageFilePaths", "imageFilePaths"),
+        hs.HopsString("imageFilePaths" , "imageFilePaths", "imageFilePaths"),
     ]
 )
 def downloadGoogleImages(search, pathSave, numberImages):
@@ -96,4 +96,4 @@ def downloadGoogleImages(search, pathSave, numberImages):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
