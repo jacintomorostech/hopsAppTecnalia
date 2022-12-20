@@ -20,12 +20,13 @@ hops: hs.HopsFlask = hs.Hops(app)
     inputs=[
         hs.HopsString("search", "search", "search"),
         hs.HopsString("pathSave", "pathSave", "pathSave"),
+        hs.HopsNumber("numberImages", "numberImages", "numberImages"),
     ],
     outputs=[
         hs.HopsString("imageFilePaths", "imageFilePaths", "imageFilePaths"),
     ]
 )
-def downloadGoogleImages(search,pathSave):
+def downloadGoogleImages(search,pathSave, numberImages):
     # define the name of the directory to be created
     keys = [search]
 
@@ -75,7 +76,7 @@ def downloadGoogleImages(search,pathSave):
             shutil.rmtree(path_save)
         os.makedirs(path_save)
 
-        cantidad_fotos = 400
+        cantidad_fotos = numberImages
         for i in range(1,cantidad_fotos):
             try:
                 driver.find_element("xpath",'//*[@id="islrg"]/div[1]/div['+str(i)+']/a[1]/div[1]/img').screenshot(path_save+'/'+str(name_folder)+str(i)+'.jpg')
