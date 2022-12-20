@@ -11,10 +11,10 @@ hops = hs.Hops(app)
 
 
 @hops.component(
-    "/downloadGoogleImages1",
+    "/googleImagesDownload",
     name="Download Google Images",
     nickname="DGI",
-    description="image",
+    description="Tecnalia Run Google Images Downloader",
     icon=r"C:/hopsAppTecnalia/Web/downloadGoogleImages/tecnaliaGHlogoogleimages.png",
     inputs=[
         hs.HopsString("search", "search", "search"),
