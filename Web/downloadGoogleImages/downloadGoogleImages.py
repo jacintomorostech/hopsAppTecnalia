@@ -1,17 +1,17 @@
+import shutil
+import os
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
 from flask import Flask
 import ghhops_server as hs
 
 app = Flask(__name__)
 hops = hs.Hops(app)
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import time
-import os
-import shutil
 
 @hops.component(
-    "/downloadGoogleImages",
+    "/downloadGoogleImages1",
     name="Download Google Images",
     nickname="DGI",
     description="image",
@@ -36,7 +36,7 @@ def downloadGoogleImages(search, pathSave, numberImages):
         options.add_argument("headless")
 
         # Opens up web driver and goes to Google Images
-        PATH_CHROME = "C:\hopsAppTecnalia-master\Web\downloadGoogleImages\chromedriver.exe"
+        PATH_CHROME = "C:\hopsAppTecnalia\Web\downloadGoogleImages\chromedriver.exe"
         driver = webdriver.Chrome(
             executable_path=PATH_CHROME, chrome_options=options)
         driver.implicitly_wait(3)
