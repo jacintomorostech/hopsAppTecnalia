@@ -25,7 +25,7 @@ hops: hs.HopsFlask = hs.Hops(app)
         hs.HopsString("imageFilePaths", "imageFilePaths", "imageFilePaths"),
     ]
 )
-def edge_detection(search,pathSave):
+def downloadGoogleImages(search,pathSave):
     # define the name of the directory to be created
     keys = [search]
 
