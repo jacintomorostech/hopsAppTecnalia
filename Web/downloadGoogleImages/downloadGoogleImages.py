@@ -1,30 +1,28 @@
 from flask import Flask
 import ghhops_server as hs
+
+app = Flask(__name__)
+hops = hs.Hops(app)
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import os
 import shutil
 
-# fjfhe
-# register hops app as middleware
-app = Flask(__name__)
-hops: hs.HopsFlask = hs.Hops(app)
-
-
 @hops.component(
     "/downloadGoogleImages",
     name="Download Google Images",
     nickname="DGI",
     description="image",
-    icon="Web\downloadGoogleImages\tecnaliaGHlogoogleimages.png",
+    icon=r"C:/hopsAppTecnalia/Web/downloadGoogleImages/tecnaliaGHlogoogleimages.png",
     inputs=[
         hs.HopsString("search", "search", "search"),
         hs.HopsString("pathSave", "pathSave", "pathSave"),
         hs.HopsNumber("numberImages", "numberImages", "numberImages"),
     ],
     outputs=[
-        hs.HopsString("imageFilePaths" , "imageFilePaths", "imageFilePaths"),
+        hs.HopsString("imageFilePaths", "imageFilePaths", "imageFilePaths"),
     ]
 )
 def downloadGoogleImages(search, pathSave, numberImages):
@@ -96,4 +94,4 @@ def downloadGoogleImages(search, pathSave, numberImages):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
