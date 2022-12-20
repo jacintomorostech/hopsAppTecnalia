@@ -36,7 +36,7 @@ def downloadGoogleImages(search,pathSave):
         options.add_argument("headless")
 
         #Opens up web driver and goes to Google Images
-        PATH_CHROME = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+        PATH_CHROME = "C:\hopsAppTecnalia-master\Web\downloadGoogleImages\chromedriver.exe"
         driver = webdriver.Chrome(executable_path=PATH_CHROME, chrome_options=options)
         driver.implicitly_wait(3)
 
